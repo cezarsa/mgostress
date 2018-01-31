@@ -45,7 +45,7 @@ func test(coll *storage.Collection, i, j int) error {
 
 func main() {
 	runtime.GOMAXPROCS(10)
-	nGoroutines := 200
+	nGoroutines := 300
 	config.Set("database:url", "127.0.0.1:27017")
 	config.Set("database:name", "tsuru_mongodb_stress_test")
 	stor, _ := db.Conn()
@@ -59,7 +59,7 @@ func main() {
 		wg.Add(1)
 		go func(g int) {
 			defer wg.Done()
-			for i := 0; i < 100; i++ {
+			for i := 0; i < 10; i++ {
 				stor, err := db.Conn()
 				if err != nil {
 					panic(err)

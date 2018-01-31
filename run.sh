@@ -14,7 +14,7 @@ function runtest() {
     target="$1"
     setmgo "$target"
     failurecount=0
-    tries=30
+    tries=50
     echo "RUNNING: $target - n=$tries"
     go build -i
     for i in $(seq $tries); do

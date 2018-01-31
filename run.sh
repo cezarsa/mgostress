@@ -10,6 +10,8 @@ function setmgo() {
     ${SED} -i'' 's|mgo "gopkg.in/mgo.v2|mgo "'"$target"'|g' main.go
 }
 
+failed=0
+
 function runtest() {
     target="$1"
     setmgo "$target"
@@ -21,6 +23,7 @@ function runtest() {
         ./mgostress
         exitcode="$?"
         if [[ "$exitcode" != "0" ]]; then
+            failed=1
             echo -n 'F'
             ((failurecount++))
         else
@@ -39,3 +42,5 @@ if [[ "$target" == "" ]]; then
 else
     runtest "$target"
 fi
+
+if [[ "$failed" != 0 ]]; then exit 1; fi

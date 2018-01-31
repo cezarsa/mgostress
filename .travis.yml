@@ -2,6 +2,10 @@ language: go
 install: true
 go:
   - 1.9.x
+before_script:
+  - ulimit -a
+  - ulimit -a -S
+  - ulimit -a -H
 script:
   - ./run.sh "${TARGET}"
 env:

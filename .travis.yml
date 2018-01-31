@@ -8,3 +8,5 @@ env:
   matrix:
     - TARGET=gopkg.in/mgo.v2
     - TARGET=github.com/globalsign/mgo
+services:
+  - mongodb

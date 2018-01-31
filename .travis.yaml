@@ -1,0 +1,10 @@
+language: go
+install: true
+go:
+  - 1.9.x
+script:
+  - ./run.sh "${TARGET}"
+env:
+  matrix:
+    - TARGET=gopkg.in/mgo.v2
+    - TARGET=github.com/globalsign/mgo

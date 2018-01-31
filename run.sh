@@ -14,7 +14,7 @@ function runtest() {
     target="$1"
     setmgo "$target"
     failurecount=0
-    tries=5
+    tries=30
     echo "RUNNING: $target - n=$tries"
     go build -i
     for i in $(seq $tries); do
@@ -28,5 +28,10 @@ function runtest() {
     echo "TARGET $target - failures: ${result}%"
 }
 
-runtest "gopkg.in/mgo.v2"
-runtest "github.com/globalsign/mgo"
+target="$1"
+if [[ "$target" == "" ]]; then
+    runtest "gopkg.in/mgo.v2"
+    runtest "github.com/globalsign/mgo"
+else
+    runtest "$target"
+fi

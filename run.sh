@@ -18,12 +18,14 @@ function runtest() {
     echo "RUNNING: $target - n=$tries"
     go build -i
     for i in $(seq $tries); do
+        echo -n '.'
         ./mgostress 2>/dev/null
         exitcode="$?"
         if [[ "$exitcode" != "0" ]]; then
             ((failurecount++))
         fi
     done
+    echo
     result=$(echo "scale=2; (${failurecount}/${tries})*100" | bc)
     echo "TARGET $target - failures: ${result}%"
 }

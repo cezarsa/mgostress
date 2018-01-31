@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
+	"time"
 
 	mgo "github.com/globalsign/mgo"
 	"github.com/tsuru/config"
@@ -19,7 +20,6 @@ type obj struct {
 }
 
 func test(coll *storage.Collection, i, j int) error {
-	defer coll.Close()
 	id := fmt.Sprintf("test-%d", i)
 	_, err := coll.UpsertId(id, obj{A: id, B: 999})
 	if err != nil {
@@ -40,12 +40,16 @@ func test(coll *storage.Collection, i, j int) error {
 	if err == mgo.ErrNotFound {
 		return nil
 	}
+	go func() {
+		time.Sleep(time.Second)
+		coll.Close()
+	}()
 	return err
 }
 
 func main() {
 	runtime.GOMAXPROCS(10)
-	nGoroutines := 300
+	nGoroutines := 500
 	config.Set("database:url", "127.0.0.1:27017")
 	config.Set("database:name", "tsuru_mongodb_stress_test")
 	stor, _ := db.Conn()

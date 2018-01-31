@@ -18,11 +18,13 @@ function runtest() {
     echo "RUNNING: $target - n=$tries"
     go build -i
     for i in $(seq $tries); do
-        echo -n '.'
         ./mgostress 2>/dev/null
         exitcode="$?"
         if [[ "$exitcode" != "0" ]]; then
+            echo -n 'F'
             ((failurecount++))
+        else
+            echo -n '.'
         fi
     done
     echo

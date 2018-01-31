@@ -49,7 +49,7 @@ func test(coll *storage.Collection, i, j int) error {
 
 func main() {
 	runtime.GOMAXPROCS(10)
-	nGoroutines := 500
+	nGoroutines := 1000
 	config.Set("database:url", "127.0.0.1:27017")
 	config.Set("database:name", "tsuru_mongodb_stress_test")
 	stor, _ := db.Conn()

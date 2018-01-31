@@ -8,6 +8,8 @@ before_script:
   - ulimit -a -S
   - ulimit -a -H
 script:
+  - ulimit -n 65536
+  - while true; do cat /proc/sys/fs/file-nr; sleep 0.5; done &
   - ./run.sh "${TARGET}"
 env:
   matrix:

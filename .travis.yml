@@ -1,6 +1,5 @@
 language: go
 install: true
-sudo: required
 go:
   - 1.9.x
 before_script:
